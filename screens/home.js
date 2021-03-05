@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-// import React, {Component} from 'react';
+import React, {Component} from 'react';
 import {
   View,
   Text,
@@ -9,212 +8,187 @@ import {
   FlatList,
   TextInput,
 } from 'react-native';
+import data from './data';
 import {moderateScale} from 'react-native-size-matters';
 import {COLORS, SIZES, Icons, FONTS} from '../constants';
 import moment from 'moment';
 import {search} from 'ss-search';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import ModalDropdown from 'react-native-modal-dropdown';
 
-// class Home extends Component {
-function Home({navigation}) {
-  const [data, setData] = useState([
-    {
-      Topic:
-        'Compilation error  building on iOS simulator:fatal error: could not build module',
-      Type: 'Problem',
-      name: 'Mavine Naaman',
-      count: 6,
-      comments: 'comments',
-      id: 1,
-    },
-    {
-      Topic: 'Testing the text',
-      Type: 'Foundation',
-      name: 'Mavine Naaman',
-      count: 20,
-      comments: 'comments',
-      id: 2,
-    },
-    {
-      Topic: 'Testing the text',
-      Type: 'Problem',
-      name: 'Developer',
-      count: 10,
-      comments: 'comments',
-      id: 3,
-    },
-    {
-      Topic: 'Can You react natively',
-      Type: 'Problem',
-      name: 'React Native',
-      count: 15,
-      comments: 'comments',
-      id: 4,
-    },
-    {
-      Topic: 'Testing the text',
-      Type: 'Foundation',
-      name: 'Ken Kings',
-      count: 10,
-      comments: 'comments',
-      id: 5,
-    },
-    {Topic: '', Type: 'Empty', name: 'Tester', comments: 'comments', id: 6},
-    {
-      Topic: '',
-      Type: 'Empty',
-      name: 'Mavine Naaman',
-      count: 60,
-      comments: 'comments',
-      id: 7,
-    },
-  ]);
+class Home extends Component {
+  state = {
+    searched: [],
+    query: '',
+    loading: true,
+  };
 
-  const [searched, setSearched] = useState();
-
-  // render() {
-  return (
-    <View style={styles.mainContainer}>
-      <View style={styles.subContainer}>
-        <View style={styles.container}>
-          <Text style={styles.textToday}>Today</Text>
-          <Image
-            source={Icons.Settings}
-            resizeMode="contain"
-            style={{
-              width: 25,
-              height: 25,
-              marginLeft: moderateScale(200),
-              marginVertical: 5,
-              color: COLORS.black,
-            }}
-          />
-        </View>
-        <View style={[styles.container, {marginTop: moderateScale(1)}]}>
-          <Text style={styles.textDate}>{moment().format('dddd Do MMMM')}</Text>
-        </View>
-        <TouchableOpacity>
-          <View style={styles.searchBar}>
-            <Image
-              source={Icons.Search}
-              style={styles.searchIcon}
-              resizeMode="contain"
-            />
-            <TextInput
-              style={styles.searchInput}
-              onChangeText={(text) => {
-                const searchKeys = ['Topic', 'Type', 'name'];
-                const searched = search(data, searchKeys, text);
-                // this.setState({searched: searched, query: text});
-              }}
-              placeholder={'Search...'}
-            />
+  render() {
+    return (
+      <View style={styles.mainContainer}>
+        <View style={styles.subContainer}>
+          <View style={styles.container}>
+            <Text style={styles.textToday}>Today</Text>
+            <TouchableOpacity onPress={() => console.log('setting')}>
+              <Image
+                source={Icons.Settings}
+                resizeMode="contain"
+                style={{
+                  width: 25,
+                  height: 25,
+                  marginLeft: moderateScale(200),
+                  marginVertical: 5,
+                  color: COLORS.black,
+                }}
+              />
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
+          <View style={[styles.container, {marginTop: moderateScale(1)}]}>
+            <Text style={styles.textDate}>
+              {moment().format('dddd Do MMMM')}
+            </Text>
+          </View>
+          <TouchableOpacity>
+            <View style={styles.searchBar}>
+              <Image
+                source={Icons.Search}
+                style={styles.searchIcon}
+                resizeMode="contain"
+              />
+              <TextInput
+                style={styles.searchInput}
+                onChangeText={(text) => {
+                  const searchKeys = ['Topic', 'Type', 'name'];
+                  const searched = search(data, searchKeys, text);
+                  this.setState({searched: searched, query: text});
+                }}
+                placeholder={'Search...'}
+              />
+            </View>
+          </TouchableOpacity>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            marginHorizontal: 20,
-            justifyContent: 'space-between',
-            paddingBottom: 10,
-          }}>
-          <TouchableOpacity style={{flexDirection: 'row'}}>
-            <Text style={styles.secondDate}>Date</Text>
-            <Image
-              source={Icons.Down}
-              resizeMode="contain"
-              style={styles.downIcon}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={{flexDirection: 'row'}}>
-            <Text style={styles.secondDate}>Filter by</Text>
-            <Image source={Icons.Down} style={styles.downIcon} />
-          </TouchableOpacity>
-          <Text style={styles.secondDate}>iOS</Text>
-          <Text style={styles.secondDate}>Xcode</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              marginHorizontal: 20,
+              justifyContent: 'space-between',
+              paddingBottom: 10,
+            }}>
+            <ModalDropdown
+              options={['Open', 'Closed']}
+              onChangeText={(val) => {
+                const searchKeys = ['Open', 'Closed'];
+                const searched = search(data, searchKeys, val);
+                this.setState({searched: searched, query: val});
+              }}>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={styles.secondDate}>Filter by</Text>
+                <Image source={Icons.Down} style={styles.downIcon} />
+              </View>
+            </ModalDropdown>
+            <ModalDropdown
+              onPress={() => console.log('Filter')}
+              options={['Problem', 'Foundation', 'Empty']}>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={styles.secondDate}>Tags</Text>
+                <Image source={Icons.Down} style={styles.downIcon} />
+              </View>
+            </ModalDropdown>
+          </View>
         </View>
-      </View>
-      <ScrollView>
-        <View style={{marginBottom: 20}}>
-          <FlatList
-            data={data}
-            renderItem={({item}) => (
-              <View style={styles.dataItems}>
-                <View style={{marginHorizontal: 20}}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      marginTop: 15,
-                      justifyContent: 'space-evenly',
-                    }}>
+        <ScrollView>
+          <View style={{marginBottom: 20}}>
+            <FlatList
+              data={this.state.query.length > 0 ? this.state.searched : data}
+              renderItem={({item}) => (
+                <View style={styles.dataItems}>
+                  <View style={{marginHorizontal: 20}}>
                     <View
                       style={{
                         flexDirection: 'row',
-                        width: '55%',
-                        marginLeft: 5,
+                        marginTop: 15,
+                        justifyContent: 'space-evenly',
                       }}>
-                      <Text style={styles.openedText}>Opened</Text>
-                      <Text style={styles.dateOnTop}>
-                        {moment().format('dddd Do MMMM')}
-                      </Text>
-                    </View>
-                    <TouchableOpacity
-                      onPress={() => navigation.navigate('Issues')}>
-                      <View style={styles.openView}>
-                        <Text style={styles.openText}>Open</Text>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          width: '55%',
+                          marginLeft: 5,
+                        }}>
+                        <Text style={styles.openedText}>Opened</Text>
+                        <Text style={styles.dateOnTop}>
+                          {moment().format('dddd Do MMMM')}
+                        </Text>
                       </View>
-                    </TouchableOpacity>
-                  </View>
-                  <View>
-                    <Text>{item.Topic}</Text>
-                  </View>
-                  <View style={{flexDirection: 'row'}}>
-                    <Text>{item.Type}</Text>
-                    <Text>#{item.id}</Text>
-                  </View>
-                  <View style={styles.bottomContainer}>
-                    <View style={styles.userItems}>
-                      <Image
-                        source={Icons.User}
-                        resizeMode="contain"
-                        style={styles.downIcon}
-                      />
-                      <Text style={styles.userNameComments}>{item.name}</Text>
+                      <TouchableOpacity
+                        onPress={() =>
+                          this.props.navigation.navigate('Issues')
+                        }>
+                        <View style={styles.openView}>
+                          <Text style={styles.openText}>{item.status}</Text>
+                        </View>
+                      </TouchableOpacity>
                     </View>
-                    <View
-                      style={[
-                        styles.userItems,
-                        {marginLeft: 10, paddingLeft: 10},
-                      ]}>
-                      <Image
-                        source={Icons.Messages}
-                        resizeMode="contain"
-                        style={styles.downIcon}
-                      />
-                      <Text style={styles.userNameComments}>{item.count}</Text>
+                    <View>
+                      <Text>{item.Topic}</Text>
+                    </View>
+                    <View style={{flexDirection: 'row'}}>
                       <Text
                         style={{
-                          marginTop: 5,
-                          marginBottom: 5,
-                          marginLeft: 3,
-                          color: COLORS.lightgrey4,
-                          fontFamily: 'Roboto-Bold',
+                          backgroundColor: COLORS.best,
+                          maxWidth: 80,
+                          padding: 6,
+                          borderRadius: 30,
+                          color: COLORS.secondary,
                         }}>
-                        {item.comments}
+                        {item.Type}
                       </Text>
+                      <Text style={{paddingTop: 6}}>#{item.id}</Text>
+                    </View>
+                    <View style={styles.bottomContainer}>
+                      <View style={styles.userItems}>
+                        <Image
+                          source={Icons.User}
+                          resizeMode="contain"
+                          style={styles.downIcon}
+                        />
+                        <Text style={styles.userNameComments}>{item.name}</Text>
+                      </View>
+                      <View
+                        style={[
+                          styles.userItems,
+                          {marginLeft: 10, paddingLeft: 10},
+                        ]}>
+                        <Image
+                          source={Icons.Messages}
+                          resizeMode="contain"
+                          style={styles.downIcon}
+                        />
+                        <Text style={styles.userNameComments}>
+                          {item.count}
+                        </Text>
+                        <Text
+                          style={{
+                            marginTop: 5,
+                            marginBottom: 5,
+                            marginLeft: 3,
+                            color: COLORS.lightgrey4,
+                            fontFamily: 'Roboto-Bold',
+                          }}>
+                          {item.comments}
+                        </Text>
+                      </View>
                     </View>
                   </View>
                 </View>
-              </View>
-            )}
-          />
-        </View>
-      </ScrollView>
-    </View>
-  );
+              )}
+            />
+          </View>
+        </ScrollView>
+      </View>
+    );
+  }
 }
-// }
 
 export default Home;
 const styles = StyleSheet.create({
