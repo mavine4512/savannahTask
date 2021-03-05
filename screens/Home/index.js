@@ -10,13 +10,13 @@ import {
 } from 'react-native';
 import data from './data';
 import {moderateScale} from 'react-native-size-matters';
-import {COLORS, SIZES, Icons, FONTS} from '../constants';
+import {COLORS, SIZES, Icons, FONTS} from '../../constants';
 import moment from 'moment';
 import {search} from 'ss-search';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import ModalDropdown from 'react-native-modal-dropdown';
 
-class Home extends Component {
+class Index extends Component {
   state = {
     searched: [],
     query: '',
@@ -190,7 +190,7 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default Index;
 const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: COLORS.lightgrey2,
