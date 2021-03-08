@@ -1,4 +1,6 @@
 import Index from './Home';
+import Login from './login';
+import Registration from './registration';
 import Issues from './issues';
 
-export {Index, Issues};
+export {Index, Login, Registration, Issues};

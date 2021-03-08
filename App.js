@@ -1,22 +1,31 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
-import {Login, Issues, Home} from './screens';
+import {ApolloProvider} from '@apollo/react-hooks';
+import Client from './constants/client';
+import {Login, Registration, Issues, Home} from './screens';
 import Tabs from './navigation/tabs';
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-        initialRouteName={'home'}>
-        <Stack.Screen name="Home" component={Tabs} />
-        {/*<Stack.Screen name="Restaurant" component={Restaurant} />*/}
-        <Stack.Screen name="Issues" component={Issues} />
-      </Stack.Navigator>
+      <ApolloProvider client={Client}>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+          initialRouteName={'Login'}>
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen name="Home" component={Tabs} />
+          <Stack.Screen name="Registration" component={Registration} />
+          <Stack.Screen name="Issues" component={Issues} />
+        </Stack.Navigator>
+      </ApolloProvider>
     </NavigationContainer>
   );
 };
