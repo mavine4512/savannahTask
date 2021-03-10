@@ -15,7 +15,7 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-// import {addUser} from './../model/data';
+import {addUser} from '../../constants/model/data';
 
 export default class Registration extends Component {
   constructor(props) {
@@ -175,7 +175,7 @@ export default class Registration extends Component {
               Password
             </Text>
             <View style={styles.action}>
-              <Feather name="lock" color="#05375a" size={20} />
+              <FontAwesome name="lock" color="#05375a" size={20} />
               <TextInput
                 placeholder="Your Password"
                 secureTextEntry={this.state.secureTextEntry}
@@ -188,9 +188,9 @@ export default class Registration extends Component {
               />
               <TouchableOpacity onPress={this.updateSecureTextEntry}>
                 {this.state.secureTextEntry ? (
-                  <Feather name="eye-off" color="grey" size={20} />
+                  <FontAwesome name="eye-slash" color="grey" size={20} />
                 ) : (
-                  <Feather name="eye" color="grey" size={20} />
+                  <FontAwesome name="eye" color="grey" size={20} />
                 )}
               </TouchableOpacity>
             </View>
@@ -211,7 +211,7 @@ export default class Registration extends Component {
               Confirm Password
             </Text>
             <View style={styles.action}>
-              <Feather name="lock" color="#05375a" size={20} />
+              <FontAwesome name="lock" color="#05375a" size={20} />
               <TextInput
                 placeholder="Confirm Your Password"
                 secureTextEntry={this.state.confirm_secureTextEntry}
@@ -221,9 +221,9 @@ export default class Registration extends Component {
               />
               <TouchableOpacity onPress={this.updateConfirmSecureTextEntry}>
                 {this.state.confirm_secureTextEntry ? (
-                  <Feather name="eye-off" color="grey" size={20} />
+                  <FontAwesome name="eye-slash" color="grey" size={20} />
                 ) : (
-                  <Feather name="eye" color="grey" size={20} />
+                  <FontAwesome name="eye" color="grey" size={20} />
                 )}
               </TouchableOpacity>
             </View>

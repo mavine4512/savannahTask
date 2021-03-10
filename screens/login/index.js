@@ -12,11 +12,9 @@ import {
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-// import { AuthContext} from './Context';
 import {DefaultTheme} from '@react-navigation/native';
 // import users from '../model/Users';
-// import {addUser, getUser} from './../model/data';
+import {addUser, getUser} from '../../constants/model/data';
 
 const {colors} = DefaultTheme;
 export default class Login extends Component {
@@ -75,13 +73,13 @@ export default class Login extends Component {
     if (val.trim().length >= 8) {
       this.setState({
         // ...data,
-        // password:val,
+        password: val,
         isValidPassword: true,
       });
     } else {
       this.setState({
         // ...data,
-        // password:val,
+        password: val,
         isValidPassword: false,
       });
     }
@@ -121,8 +119,8 @@ export default class Login extends Component {
       .then((user) => {
         console.log(user, 'working');
         if (user != null) {
-          user.email == this.state.email &&
-            user.password == this.state.password;
+          user.email === this.state.email &&
+            user.password === this.state.password;
         }
         {
           user.isLogged = true;
@@ -160,7 +158,7 @@ export default class Login extends Component {
             />
             {this.check_textInputChange ? (
               <Animatable.View animation="bounceIn">
-                <Feather name="check-circle" color="green" size={20} />
+                <FontAwesome name="check-circle" color="green" size={20} />
               </Animatable.View>
             ) : null}
           </View>
@@ -181,7 +179,7 @@ export default class Login extends Component {
             password
           </Text>
           <View style={styles.action}>
-            <Feather name="lock" color="#05375a" size={20} />
+            <FontAwesome name="lock" color="#05375a" size={20} />
             <TextInput
               placeholder="Your Password"
               secureTextEntry={this.state.secureTextEntry}
@@ -194,9 +192,9 @@ export default class Login extends Component {
             />
             <TouchableOpacity onPress={this.updateSecureTextEntry}>
               {this.state.secureTextEntry ? (
-                <Feather name="eye-off" color="gray" size={20} />
+                <FontAwesome name="eye-slash" color="gray" size={20} />
               ) : (
-                <Feather name="eye" color="gray" size={20} />
+                <FontAwesome name="eye" color="gray" size={20} />
               )}
             </TouchableOpacity>
           </View>
@@ -276,6 +274,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 30,
     textAlign: 'center',
+    fontFamily: 'Roboto-Thin',
   },
   text_footer: {
     color: '#05375a',
