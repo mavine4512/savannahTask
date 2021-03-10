@@ -51,7 +51,7 @@ const Index = () => {
       </View>
     );
   }
-  // console.log('data :', data);
+  console.log('data :', data);
   return (
     <View style={styles.mainContainer}>
       <View style={styles.subContainer}>
