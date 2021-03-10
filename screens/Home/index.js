@@ -38,8 +38,16 @@ const Index = () => {
 
   if (error) {
     return (
-      <View>
-        <Text>error</Text>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: COLORS.best,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Text style={{fontFamily: 'Roboto-Medium', fontSize: SIZES.body2}}>
+          Error finding network...
+        </Text>
       </View>
     );
   }
