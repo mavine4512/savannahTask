@@ -32,23 +32,23 @@ const Tabs = () => {
           ),
         }}
       />
-      <Tab.Screen
-        name="Issues"
-        component={Issues}
-        options={{
-          tabBarIcon: ({focused}) => (
-            <Image
-              source={Icons.Envelop}
-              resizeMode="contain"
-              style={{
-                width: 25,
-                height: 25,
-                tintColor: focused ? COLORS.primary : COLORS.secondary,
-              }}
-            />
-          ),
-        }}
-      />
+      {/*<Tab.Screen*/}
+      {/*  name="Issues"*/}
+      {/*  component={Issues}*/}
+      {/*  options={{*/}
+      {/*    tabBarIcon: ({focused}) => (*/}
+      {/*      <Image*/}
+      {/*        source={Icons.Envelop}*/}
+      {/*        resizeMode="contain"*/}
+      {/*        style={{*/}
+      {/*          width: 25,*/}
+      {/*          height: 25,*/}
+      {/*          tintColor: focused ? COLORS.primary : COLORS.secondary,*/}
+      {/*        }}*/}
+      {/*      />*/}
+      {/*    ),*/}
+      {/*  }}*/}
+      {/*/>*/}
       <Tab.Screen
         name="User"
         component={Index}

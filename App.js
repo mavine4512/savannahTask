@@ -3,7 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {ApolloProvider} from '@apollo/react-hooks';
 import Client from './constants/client';
-import {Login, Registration, Issues, Home} from './screens';
+import {Login, Logout, Registration, Issues, Home} from './screens';
 import Tabs from './navigation/tabs';
 const Stack = createStackNavigator();
 
@@ -23,7 +23,12 @@ const App = () => {
           />
           <Stack.Screen name="Home" component={Tabs} />
           <Stack.Screen name="Registration" component={Registration} />
-          <Stack.Screen name="Issues" component={Issues} />
+          <Stack.Screen
+            name="Issues"
+            component={Issues}
+            options={{headerShown: true}}
+          />
+          <Stack.Screen name="Logout" component={Logout} options={{headerShown: true}}/>
         </Stack.Navigator>
       </ApolloProvider>
     </NavigationContainer>

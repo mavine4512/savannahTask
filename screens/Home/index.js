@@ -18,7 +18,7 @@ import DelayInput from 'react-native-debounce-input';
 import {useQuery} from '@apollo/react-hooks';
 import {SEARCH_FOR_ISSUES} from '../../constants/query';
 
-const Index = () => {
+const Index = ({navigation}) => {
   const [searched, setSearched] = useState('');
   const inputRef = createRef();
   let {data, loading, error} = useQuery(SEARCH_FOR_ISSUES, {
@@ -51,20 +51,26 @@ const Index = () => {
       </View>
     );
   }
-  console.log('data :', data);
+  // console.log('data :', data);
   return (
     <View style={styles.mainContainer}>
       <View style={styles.subContainer}>
         <View style={styles.container}>
           <Text style={styles.textToday}>Today</Text>
-          <TouchableOpacity onPress={() => console.log('setting')}>
+          <TouchableOpacity
+            style={{
+              width: 30,
+              height: 30,
+              justifyContent: 'center',
+              marginLeft: moderateScale(220),
+            }}
+            onPress={() => navigation.navigate('Logout')}>
             <Image
               source={Icons.Settings}
               resizeMode="contain"
               style={{
                 width: 25,
                 height: 25,
-                marginLeft: moderateScale(200),
                 marginVertical: 5,
                 color: COLORS.black,
               }}
@@ -151,7 +157,7 @@ const Index = () => {
                       </Text>
                     </View>
                     <TouchableOpacity
-                      onPress={() => this.props.navigation.navigate('Issues')}>
+                      onPress={() => navigation.navigate('Issues', {item})}>
                       <View style={styles.openView}>
                         <Text style={styles.openText}>{item.node.state}</Text>
                       </View>
@@ -320,12 +326,4 @@ const styles = StyleSheet.create({
     color: COLORS.lightgrey4,
     fontFamily: 'Roboto-Bold',
   },
-  // downIcon: {
-  //   marginLeft: 5,
-  //   marginTop: 5,
-  //   marginBottom: 5,
-  //   width: 15,
-  //   height: 15,
-  //   tintColor: COLORS.best,
-  // },
 });

@@ -211,6 +211,7 @@ export default class Login extends Component {
               Forgot password?
             </Text>
           </TouchableOpacity>
+
           <View style={styles.button}>
             <TouchableOpacity
               style={styles.signIn}

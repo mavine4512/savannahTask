@@ -57,6 +57,10 @@ export const FONTS = {
   body2: {fontFamily: 'Roboto-Medium', fontSize: SIZES.body2, lineHeight: 30},
   body3: {fontFamily: 'Roboto-Medium', fontSize: SIZES.body3, lineHeight: 22},
   body4: {fontFamily: 'Roboto-Medium', fontSize: SIZES.body4, lineHeight: 22},
+  body5: {fontFamily: 'Roboto-italic', fontSize: SIZES.body4, lineHeight: 22},
+  body6: {fontFamily: 'Roboto-Regular', fontSize: SIZES.body4, lineHeight: 22},
+  body7: {fontFamily: 'Roboto-Light', fontSize: SIZES.body4, lineHeight: 22},
+  body8: {fontFamily: 'Roboto-Thin', fontSize: SIZES.body4, lineHeight: 22},
 };
 const appTheme = {COLORS, SIZES, FONTS};
 export default appTheme;
