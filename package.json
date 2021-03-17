@@ -12,7 +12,8 @@
     "unlink": "react-native unlink",
     "clean": "cd android && gradlew clean",
     "clean-win": "cd android && ./gradlew clean",
-    "release-apk": "cd android && gradlew assembleRelease"
+    "release-apk": "cd android && gradlew assembleRelease",
+    "build": "babel src -d lib"
   },
   "dependencies": {
     "@apollo/react-hooks": "4.0.0",
@@ -22,8 +23,9 @@
     "@react-navigation/bottom-tabs": "5.11.8",
     "@react-navigation/native": "5.9.3",
     "@react-navigation/stack": "5.14.3",
-    "@testing-library/react-native": "7.2.0",
     "apollo-boost": "0.4.9",
+    "apollo-mocked-provider": "5.0.0",
+    "enzyme": "3.11.0",
     "feather-icons": "4.28.0",
     "graphql": "15.5.0",
     "graphql-modules": "1.4.1",
@@ -55,7 +57,9 @@
     "@babel/runtime": "7.13.7",
     "@react-native-community/eslint-config": "1.1.0",
     "@testing-library/jest-native": "4.0.1",
+    "@testing-library/react-native": "7.2.0",
     "babel-jest": "25.5.1",
+    "cavy": "4.0.1",
     "eslint": "6.8.0",
     "jest": "25.5.4",
     "metro-react-native-babel-preset": "0.59.0",

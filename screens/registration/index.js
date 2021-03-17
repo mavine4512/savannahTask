@@ -153,6 +153,7 @@ export default class Registration extends Component {
             <View style={styles.action}>
               <FontAwesome name="user-o" color="#05375a" size={20} />
               <TextInput
+                testID={'email'}
                 placeholder="Your email"
                 style={styles.textInput}
                 autoCapitalize="none"
@@ -177,6 +178,7 @@ export default class Registration extends Component {
             <View style={styles.action}>
               <FontAwesome name="lock" color="#05375a" size={20} />
               <TextInput
+                testID={'password'}
                 placeholder="Your Password"
                 secureTextEntry={this.state.secureTextEntry}
                 style={styles.textInput}
@@ -213,6 +215,7 @@ export default class Registration extends Component {
             <View style={styles.action}>
               <FontAwesome name="lock" color="#05375a" size={20} />
               <TextInput
+                testID={'confirmPassword'}
                 placeholder="Confirm Your Password"
                 secureTextEntry={this.state.confirm_secureTextEntry}
                 style={styles.textInput}
@@ -249,6 +252,7 @@ export default class Registration extends Component {
             <View style={styles.button}>
               <TouchableOpacity
                 style={styles.signIn}
+                testID={'registerbtn'}
                 onPress={() => this.register()}>
                 <LinearGradient
                   colors={['#5499D8', '#01ab9d']}
@@ -266,7 +270,7 @@ export default class Registration extends Component {
               </TouchableOpacity>
 
               <TouchableOpacity
-                // onPress={() => navigation.goBack()}
+                testID={'SignIn'}
                 onPress={() => this.props.navigation.navigate('Login')}
                 style={[
                   styles.signIn,
@@ -297,7 +301,6 @@ export default class Registration extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //   backgroundColor: '#009387'
     backgroundColor: '#5499D8',
   },
   header: {

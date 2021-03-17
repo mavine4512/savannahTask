@@ -6,15 +6,16 @@ import {
   StyleSheet,
   ScrollView,
   ActivityIndicator,
+  FlatList,
 } from 'react-native';
 import {COLORS} from '../constants';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import moment from 'moment';
 class Issues extends Component {
-  state = {
-    item: this.props.route.params.item,
-    loading: true,
-  };
+  // state = {
+    // item: this.props.route.params.item,
+    // loading: true,
+  // };
   componentDidMount() {
     console.log('items', this.state.item.node.body);
   }
@@ -31,6 +32,7 @@ class Issues extends Component {
               marginBottom: 5,
             }}>
             <View
+              testID={'FlatList'}
               style={{
                 backgroundColor: COLORS.secondary,
                 borderRadius: 30,
@@ -62,10 +64,6 @@ class Issues extends Component {
           <View
             style={{
               marginHorizontal: 20,
-              // elevation:1,
-              // backgroundColor:COLORS.white,
-              // paddingRight:5,
-              // paddingLeft:5,
             }}>
             <Text
               style={{

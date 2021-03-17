@@ -55,6 +55,7 @@ export default class Login extends Component {
     if (val.trim().length >= 8) {
       this.setState({
         // ...data,
+        testID: 'email',
         password: val,
         check_passInputChange: true,
         isValidPassword: true,
@@ -150,6 +151,7 @@ export default class Login extends Component {
           <View style={styles.action}>
             <FontAwesome name="user-o" color="#05375a" size={20} />
             <TextInput
+              testID={'email'}
               placeholder="Your Email"
               style={styles.textInput}
               autoCapitalize="none"
@@ -181,6 +183,7 @@ export default class Login extends Component {
           <View style={styles.action}>
             <FontAwesome name="lock" color="#05375a" size={20} />
             <TextInput
+              testID={'password'}
               placeholder="Your Password"
               secureTextEntry={this.state.secureTextEntry}
               style={styles.textInput}
@@ -215,6 +218,7 @@ export default class Login extends Component {
           <View style={styles.button}>
             <TouchableOpacity
               style={styles.signIn}
+              testID={'loginbtn'}
               onPress={() => {
                 this.loginHandle();
               }}>
@@ -225,6 +229,7 @@ export default class Login extends Component {
               </LinearGradient>
             </TouchableOpacity>
             <TouchableOpacity
+              testID={'Registrationbtn'}
               onPress={() => this.props.navigation.navigate('Registration')}
               style={[
                 styles.signIn,

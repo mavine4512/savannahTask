@@ -36,7 +36,7 @@ export default class Logout extends Component {
     return (
       <View style={styles.Container}>
         <TouchableOpacity
-          style={styles.signIn}
+          testID={'logout'}
           onPress={() => {
             this.logOut();
           }}

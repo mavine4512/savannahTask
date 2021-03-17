@@ -2,12 +2,9 @@ import {fireEvent, render} from '@testing-library/react-native';
 import Login from '../screens/login';
 import {TextInput, View} from 'react-native';
 import React from 'react';
-
-test('fire changeText event', () => {
+test('fire changeText event login', () => {
   const onEventMock = jest.fn();
   const {getByPlaceholderText} = render(
-    // MyComponent renders TextInput which has a placeholder 'Enter details'
-    // and with `onChangeText` bound to handleChangeText
     <Login>
       <TextInput
         placeholder={('Your Email', 'Your Password')}

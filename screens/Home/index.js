@@ -10,27 +10,31 @@ import {
 import {moderateScale} from 'react-native-size-matters';
 import {COLORS, SIZES, Icons} from '../../constants';
 import moment from 'moment';
-import {search} from 'ss-search';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Spinner} from 'native-base';
 import ModalDropdown from 'react-native-modal-dropdown';
 import DelayInput from 'react-native-debounce-input';
 import {useQuery} from '@apollo/react-hooks';
 import {SEARCH_FOR_ISSUES} from '../../constants/query';
+import Tags from '../Tags';
+import {hook, useCavy} from 'cavy';
 
 const Index = ({navigation}) => {
+  const generateTestHook = useCavy();
   const [searched, setSearched] = useState('');
+  const [issue, setIssue] = useState('');
+  const [sortBy, setSortBy] = useState('');
   const inputRef = createRef();
   let {data, loading, error} = useQuery(SEARCH_FOR_ISSUES, {
     variables: {
-      searchQuery: `repo:flutter/flutter is:issue in:title ${searched}`,
+      searchQuery: `repo:flutter/flutter is:issue in:title ${issue} ${sortBy} ${searched}`,
       endCursor: null,
     },
   });
 
   if (loading) {
     return (
-      <View style={{marginTop: '70%'}}>
+      <View testID={'loading'} style={{marginTop: '70%'}}>
         <Spinner color="blue" />
       </View>
     );
@@ -39,14 +43,22 @@ const Index = ({navigation}) => {
   if (error) {
     return (
       <View
+        testID={'error'}
         style={{
           flex: 1,
           backgroundColor: COLORS.best,
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Text style={{fontFamily: 'Roboto-Medium', fontSize: SIZES.body2}}>
-          Error finding network...
+        <Text
+          style={{
+            color: COLORS.white,
+            fontFamily: 'Roboto-Thin',
+            fontSize: SIZES.body2,
+            marginLeft: 15,
+            marginRight: 15,
+          }}>
+          Error finding network,make sure you are connected
         </Text>
       </View>
     );
@@ -91,6 +103,8 @@ const Index = ({navigation}) => {
             <DelayInput
               style={styles.searchInput}
               minLength={3}
+              ref={generateTestHook('Searched.TextInput', ` ${searched}`)}
+              testID={'searched'}
               delayTimeout={1000}
               inputRef={inputRef}
               onChangeText={(text) => {
@@ -110,11 +124,16 @@ const Index = ({navigation}) => {
             paddingBottom: 10,
           }}>
           <ModalDropdown
-            options={['Open', 'Closed']}
-            onChangeText={(val) => {
-              const searchKeys = ['Open', 'Closed'];
-              const searched = search(data, searchKeys, val);
-              setSearched({searched: searched, query: val});
+            testID={'openClosed'}
+            options={['open', 'closed']}
+            onSelect={(val) => {
+              let selectedIssue;
+              if (val === 0) {
+                selectedIssue = 'is:open';
+              } else {
+                selectedIssue = 'is:closed';
+              }
+              setIssue(selectedIssue);
             }}>
             <View style={{flexDirection: 'row'}}>
               <Text style={styles.secondDate}>Filter by</Text>
@@ -122,18 +141,44 @@ const Index = ({navigation}) => {
             </View>
           </ModalDropdown>
           <ModalDropdown
-            onPress={() => console.log('Filter')}
-            options={['Problem', 'Foundation', 'Empty']}>
+            testID={'filterBy'}
+            options={[
+              'newest',
+              'oldest',
+              'most commented',
+              'least commented',
+              'recently updated',
+              'least recently updated',
+            ]}
+            onSelect={(val) => {
+              let selectedSortBy;
+              if (val === 'newest') {
+                selectedSortBy = 'sort:created-desc ';
+              } else if (val === 'oldest') {
+                selectedSortBy = 'sort:created-asc ';
+              } else if (val === 'most commented') {
+                selectedSortBy = 'sort:comments-desc';
+              } else if (val === 'least commented') {
+                selectedSortBy = 'sort:comments-asc';
+              } else if (val === 'recently updated') {
+                selectedSortBy = 'sort:updated-desc';
+              } else if (val === 'least recently updated') {
+                selectedSortBy = 'sort:updated-asc';
+              }
+              setSortBy(selectedSortBy);
+            }}>
             <View style={{flexDirection: 'row'}}>
-              <Text style={styles.secondDate}>Tags</Text>
+              <Text style={styles.secondDate}>Filter by</Text>
               <Image source={Icons.Down} style={styles.downIcon} />
             </View>
           </ModalDropdown>
+          <Tags />
         </View>
       </View>
       <ScrollView>
         <View style={{marginBottom: 20}}>
           <FlatList
+            testID={'flatList'}
             data={data.search.edges}
             renderItem={({item}) => (
               // console.log('data',item.node.createdAt),
@@ -215,7 +260,7 @@ const Index = ({navigation}) => {
   );
 };
 
-export default Index;
+export default hook(Index);
 const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: COLORS.lightgrey2,

@@ -28,7 +28,11 @@ const App = () => {
             component={Issues}
             options={{headerShown: true}}
           />
-          <Stack.Screen name="Logout" component={Logout} options={{headerShown: true}}/>
+          <Stack.Screen
+            name="Logout"
+            component={Logout}
+            options={{headerShown: true}}
+          />
         </Stack.Navigator>
       </ApolloProvider>
     </NavigationContainer>
